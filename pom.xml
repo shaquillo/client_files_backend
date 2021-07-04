@@ -14,7 +14,7 @@
 	<name>risk_management</name>
 	<description>risk management file for a client</description>
 	<properties>
-		<java.version>11</java.version>
+<!--		<java.version>11</java.version>-->
 	</properties>
 	<dependencies>
 		<dependency>

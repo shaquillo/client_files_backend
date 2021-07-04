@@ -1,11 +1,13 @@
 package com.constelis.risk_management.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
 public class Note {
 
     private String id;
