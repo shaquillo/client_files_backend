@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class Client {
 
     private String linkedIn_link;
 
-    private int notation;
+    @Field
+    private int notation = 1;
 
     private Account account;
 
