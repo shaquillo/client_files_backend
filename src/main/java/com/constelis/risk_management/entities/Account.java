@@ -13,7 +13,7 @@ public class Account {
 
     private int risk;
 
-    private Status status;
+    private Status status = Status.PENDING;
 
     private int investment_plan;
 }

@@ -14,9 +14,9 @@ public class Note {
 
     private String note;
 
-    private Status status;
+    private Status status = Status.PENDING;
 
-    private Status document;
+    private Status document = Status.PENDING;
 
     private String document_link;
 
