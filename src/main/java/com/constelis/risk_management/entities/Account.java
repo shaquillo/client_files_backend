@@ -15,5 +15,5 @@ public class Account {
 
     private Status status = Status.PENDING;
 
-    private int investment_plan;
+    private String investment_plan;
 }
