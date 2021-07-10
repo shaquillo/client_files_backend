@@ -24,7 +24,7 @@ public class Note {
 
     private String offer;
 
-    private LocalDate creation_date = LocalDate.now();
+    private LocalDate creation_date;
 
     private LocalDate offer_date;
 
