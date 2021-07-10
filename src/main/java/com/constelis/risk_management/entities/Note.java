@@ -3,6 +3,7 @@ package com.constelis.risk_management.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.time.LocalDate;
@@ -20,7 +21,9 @@ public class Note {
 
     private Status document_status = Status.PENDING;
 
-    private String document_link;
+    private MultipartFile file;
+
+    private String filename;  //filename
 
     private String offer;
 
@@ -28,11 +31,12 @@ public class Note {
 
     private LocalDate offer_date;
 
-    public Note(String note, Status status, Status document, String document_link, String offer, LocalDate created, LocalDate offer_date) {
+    public Note(String note, Status status, Status document, MultipartFile file, String filename, String offer, LocalDate created, LocalDate offer_date) {
         this.note = note;
         this.status = status;
         this.document_status = document;
-        this.document_link = document_link;
+        this.file = file;
+        this.filename = filename;
         this.offer = offer;
         this.creation_date = created;
         this.offer_date = offer_date;

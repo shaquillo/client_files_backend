@@ -6,6 +6,7 @@ import com.constelis.risk_management.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,11 @@ public class ClientController {
         List<Client> clients = clientService.findAll();
         logger.info("Restcontroller - returning all clients: " + clients);
         return clients;
+    }
+
+    @RequestMapping(value="/client/note/file/{filename:.+}", method = RequestMethod.GET)
+    public Resource getNoteDocument(@PathVariable String filename){
+        return clientService.loadFile(filename);
     }
 
 }
