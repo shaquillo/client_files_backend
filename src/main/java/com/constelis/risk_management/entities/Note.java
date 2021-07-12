@@ -37,6 +37,9 @@ public class Note {
         this.document_status = document;
         this.file = file;
         this.filename = filename;
+        if(this.file){
+            this.filename = this.file.getOriginalFilename();
+        }
         this.offer = offer;
         this.creation_date = created;
         this.offer_date = offer_date;

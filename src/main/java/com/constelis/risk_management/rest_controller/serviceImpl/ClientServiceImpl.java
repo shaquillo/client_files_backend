@@ -30,17 +30,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client create(Client client) {
-        MultipartFile file;
-        for(int i=0; i<client.getNotes().size(); i++){
-            file = ((Note)client.getNotes().get(i)).getFile();
-            ((Note) client.getNotes().get(i)).setFilename(file.getOriginalFilename());
-            try {
-                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-            } catch (IOException e) {
-                logger.info("File uplaod failed during client creation");
-                e.printStackTrace();
-            }
-        }
+        // MultipartFile file;
+        // for(int i=0; i<client.getNotes().size(); i++){
+        //     file = ((Note)client.getNotes().get(i)).getFile();
+        //     ((Note) client.getNotes().get(i)).setFilename(file.getOriginalFilename());
+        //     try {
+        //         Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+        //     } catch (IOException e) {
+        //         logger.info("File uplaod failed during client creation");
+        //         e.printStackTrace();
+        //     }
+        // }
         return clientRepository.save(client);
     }
 
