@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,17 +31,21 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client create(Client client) {
-        // MultipartFile file;
-        // for(int i=0; i<client.getNotes().size(); i++){
-        //     file = ((Note)client.getNotes().get(i)).getFile();
-        //     ((Note) client.getNotes().get(i)).setFilename(file.getOriginalFilename());
-        //     try {
-        //         Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-        //     } catch (IOException e) {
-        //         logger.info("File uplaod failed during client creation");
-        //         e.printStackTrace();
-        //     }
-        // }
+
+        logger.info("Creating client: " + client);
+
+//        MultipartFile file;
+//        for(int i=0; i<client.getNotes().size(); i++){
+//            file = client.getNotes().get(i).getFile();
+//            client.getNotes().get(i).setFilename(file.getOriginalFilename());
+//            try {
+//                logger.info("copying file ----- ");
+//                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+//            } catch (IOException e) {
+//                logger.info("File uplaod failed during client creation");
+//                e.printStackTrace();
+//            }
+//        }
         return clientRepository.save(client);
     }
 
@@ -63,6 +68,10 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    public void deleteAll() {
+        logger.info("ClientServiceImpl - deleting file storage directory");
+        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
 
     @Override
     public Resource loadFile(String filename) {
@@ -79,6 +88,25 @@ public class ClientServiceImpl implements ClientService {
         } catch (MalformedURLException e) {
             logger.info("Error during file download");
             throw new RuntimeException("FAIL! Error");
+        }
+    }
+
+    @Override
+    public String uploadFile(MultipartFile file) {
+
+        String filename = file.getOriginalFilename();
+
+        try {
+            try {
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(filename));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return filename;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }

@@ -43,7 +43,7 @@ public class Client {
 
     private Account account;
 
-    private List notes;
+    private List<Note> notes;
 
     public Client(String name, String profession, String category, String tel, String email, String CP, String address, String town, String linkedIn_link, int notation) {
         this.name = name;

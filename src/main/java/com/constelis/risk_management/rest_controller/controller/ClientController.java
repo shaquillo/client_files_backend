@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -42,8 +43,15 @@ public class ClientController {
         return clients;
     }
 
+    @RequestMapping(value = "/client/note/file", method = RequestMethod.POST)
+    public String uploadFile(@RequestParam("file") MultipartFile file){
+        logger.info("uploading file");
+        return clientService.uploadFile(file);
+    }
+
     @RequestMapping(value="/client/note/file/{filename:.+}", method = RequestMethod.GET)
     public Resource getNoteDocument(@PathVariable String filename){
+        logger.info("downloading file");
         return clientService.loadFile(filename);
     }
 

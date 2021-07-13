@@ -1,9 +1,10 @@
 package com.constelis.risk_management;
 
-import com.constelis.risk_management.entities.Client;
-import com.constelis.risk_management.entities.Status;
+import com.constelis.risk_management.rest_controller.serviceImpl.ClientServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.Resource;
 
 @SpringBootApplication
 public class RiskManagementApplication {
