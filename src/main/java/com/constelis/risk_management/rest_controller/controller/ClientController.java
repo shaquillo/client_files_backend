@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -44,9 +46,13 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client/note/file", method = RequestMethod.POST)
-    public String uploadFile(@RequestParam("file") MultipartFile file){
+    public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file){
         logger.info("uploading file");
-        return clientService.uploadFile(file);
+        String filename = clientService.uploadFile(file);
+        logger.info("name of uploaded file: " + filename);
+        HashMap<String, String> respons = new HashMap<String, String>();
+        respons.put("filename", filename);
+        return respons;
     }
 
     @RequestMapping(value="/client/note/file/{filename:.+}", method = RequestMethod.GET)
