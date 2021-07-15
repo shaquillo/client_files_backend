@@ -11,13 +11,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.List;
 
 @Service
@@ -99,7 +98,10 @@ public class ClientServiceImpl implements ClientService {
         try {
             try {
                 Files.copy(file.getInputStream(), this.rootLocation.resolve(filename));
-            } catch (Exception e) {
+            } catch (FileAlreadyExistsException e) {
+                filename = StringUtils.cleanPath(file.getOriginalFilename());
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+            } catch(Exception e){
                 e.printStackTrace();
             }
 
