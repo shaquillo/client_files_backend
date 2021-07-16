@@ -78,6 +78,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             Path file = rootLocation.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
+            logger.info("file path: " +  file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {

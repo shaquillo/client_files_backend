@@ -1,12 +1,15 @@
 package com.constelis.risk_management.rest_controller.controller;
 
 import com.constelis.risk_management.entities.Client;
-import com.constelis.risk_management.rest_controller.serviceImpl.ClientServiceImpl;
 import com.constelis.risk_management.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,9 +59,13 @@ public class ClientController {
     }
 
     @RequestMapping(value="/client/note/file/{filename:.+}", method = RequestMethod.GET)
-    public Resource getNoteDocument(@PathVariable String filename){
+    public ResponseEntity<Resource> getNoteDocument(@PathVariable String filename){
         logger.info("downloading file");
-        return clientService.loadFile(filename);
+        Resource resource = clientService.loadFile(filename);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_PDF);
+
+        return new ResponseEntity<Resource>(resource, httpHeaders, HttpStatus.OK);
     }
 
 }
